@@ -1,0 +1,11 @@
+<!-- http://localhost/dashboard/phpinfo.php -->
+
+<?php
+
+// php起始標籤
+
+phpInfo();
+
+// php不區分大小寫
+// 如果要穿插其他語言 php需要有結束標籤 如果全部都是php 那就不用結束標籤
+
