@@ -42,4 +42,6 @@
 
 <!-- https://www.php.net/manual/en/function.sprintf.php -->
 
+<!-- X = The argument is treated as an integer and presented as a hexadecimal number (with uppercase letters). -->
+
 </html>
