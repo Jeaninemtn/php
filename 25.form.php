@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="23.post.php" method="post">
+    <form action="./23.post.php" method="post">
         <input type="text" name="account" id="account" placeholder="account">
         <br>
         <input type="password" name="password" id="password" placeholder="password">
