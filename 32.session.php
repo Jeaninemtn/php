@@ -14,7 +14,7 @@ session_start(); // 啟用session功能
 
         <?php
 
-            echo $_SESSION['user'];
+            echo $_SESSION['user'];  // 沒設定就呼叫
 
         ?>
 

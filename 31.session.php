@@ -14,9 +14,9 @@ session_start(); // 啟用session功能
 
         <?php
 
-            $_SESSION['user'] = 'Ning';
+            $_SESSION['user'] = 'Ning';  // 有設定
 
-            echo $_SESSION['user'];
+            echo $_SESSION['user'];  // 再呼叫
 
         ?>
 

@@ -10,3 +10,7 @@ phpInfo();
 // 如果要穿插其他語言 php需要有結束標籤 如果全部都是php 那就不用結束標籤
 
 // https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh?hl=zh-TW
+
+// https://github.com/PHPMailer/PHPMailer
+
+// https://getcomposer.org/
