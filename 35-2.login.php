@@ -17,17 +17,17 @@ session_start();
 
         // 如果input-user不為空白且input-password也不為空白
 
-        $user = empty($users[$_POST['user']]) ? '' : $users[$_POST['user']]; // 三元運算子
-        if ($user == '') {
+        $user = empty($users[$_POST['user']]) ? '' : $users[$_POST['user']];  // 三元運算子
+        if ($user == '') {  // 如果input-user為空白or不正確
             echo 'Wrong Account';
             exit;
-        } else {
-            if ($_POST['password'] == $user['password']) {
+        } else {  // 如果input-user不為空白or正確
+            if ($_POST['password'] == $user['password']) {  // 且password也正確
                 $_SESSION['user'] = [
                     'account' => $_POST['user'],
                     'nickname' => $user['nickname'],
                 ];
-            } else {
+            } else {  // 如果input-password不正確
                 echo 'Wrong Password';
                 exit;
             }
