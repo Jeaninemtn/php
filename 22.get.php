@@ -1,6 +1,6 @@
 <?php
 
-echo json_encode($_GET, JSON_UNESCAPED_UNICODE)
+echo json_encode($_GET, JSON_UNESCAPED_UNICODE);
 
 // get
 // 送出資料後 (以帳號密碼舉例) 會在網址列看到填寫的帳密

@@ -1,6 +1,6 @@
 <?php
 
-echo json_encode($_POST, JSON_UNESCAPED_UNICODE)
+echo json_encode($_POST, JSON_UNESCAPED_UNICODE);
 
 // post
 // 重要的資料需要用post傳送 不用get
