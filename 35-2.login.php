@@ -15,8 +15,9 @@ session_start();
 
     if (!empty($_POST['user']) and !empty($_POST['password'])) {
 
-        $user = empty($users[$_POST['user']]) ? '' : $users[$_POST['user']];
+        // 如果input-user不為空白且input-password也不為空白
 
+        $user = empty($users[$_POST['user']]) ? '' : $users[$_POST['user']]; // 三元運算子
         if ($user == '') {
             echo 'Wrong Account';
             exit;
@@ -50,7 +51,7 @@ session_start();
     <p><a href="36.logout.php">Log out</a></p>
     <?php else : ?>
     
-    <form action="post">
+    <form method="post">
         <input type="text" name="user" placeholder="Account">
         <br>
         <input type="password" name="password" placeholder="password">
