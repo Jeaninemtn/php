@@ -18,7 +18,6 @@ if ($page < 1) {
     exit;
 }
 
-
 $t_sql = "SELECT COUNT(1) FROM address_book";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $output['totalRows'] = $totalRows;
