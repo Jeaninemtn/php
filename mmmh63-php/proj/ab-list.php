@@ -5,13 +5,13 @@ $title = '通訊錄列表';
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-$perPage = 5; // 每一頁有幾筆資料
+$perPage = 5; // 每一頁最多有幾筆資料
 
-$output = [
+$output = [  // 要輸出的資料放在這兒
     'perPage' => $perPage,
-    'totalRows' => 0,
-    'totalPages' => 0,
-    'page' => $page,
+    'totalRows' => 0,  // 總共有幾筆資料
+    'totalPages' => 0,  // 總共有幾頁
+    'page' => $page,  // 現在在第幾頁
     'rows' => [],  // 分頁的資料
 ];
 
@@ -20,7 +20,7 @@ if ($page < 1) {
     exit;
 }
 
-
+// COUNT (MySQL) 用來計算 資料總筆數
 $t_sql = "SELECT COUNT(1) FROM address_book";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $output['totalRows'] = $totalRows;

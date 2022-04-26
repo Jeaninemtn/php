@@ -28,3 +28,5 @@ $row = $stmt->fetchAll(); // fetch 也是拿資料的方法 跟query類似
 //print_r($row);
 header('Content-Type: application/json');  // 伺服器告訴用戶端文件的格式為 JSON
 echo json_encode($row, JSON_UNESCAPED_UNICODE);
+
+// 這邊是FetchAll
