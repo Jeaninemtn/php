@@ -26,7 +26,7 @@ $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8";
 
 $pdo_options = [ // 其他設定  這邊放一個array
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // 錯誤模式 及 錯誤的例外模式
-    // 可以透過try&catch去處理 (看講義的例子)
+    // 可以透過try&catch去除錯 (看講義的例子)
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // 以關聯式陣列的格式取出資料
     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4",
 ]; // 類別裡定義的常數(以大寫呈現)
