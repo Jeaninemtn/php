@@ -18,3 +18,10 @@ phpInfo();
 // PDO
 
 // https://www.php.net/manual/fr/book.pdo.php
+
+// adminer
+
+// https://www.adminer.org/
+
+// 可以透過adminer去連線別人的資料庫
+
