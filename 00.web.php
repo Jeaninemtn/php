@@ -14,3 +14,7 @@ phpInfo();
 // https://github.com/PHPMailer/PHPMailer
 
 // https://getcomposer.org/
+
+// PDO
+
+// https://www.php.net/manual/fr/book.pdo.php
