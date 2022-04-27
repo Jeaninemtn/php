@@ -84,17 +84,24 @@ if ($totalPages > 0) {
     <table class="table table-striped table-hover">
         <thead>
             <tr>
+                <th scope="col"><i class="fa-solid fa-trash-can"></i></th>
                 <th scope="col">#</th>
                 <th scope="col">姓名</th>
                 <th scope="col">電郵</th>
                 <th scope="col">手機</th>
                 <th scope="col">生日</th>
                 <th scope="col">地址</th>
+                <th scope="col"><i class="fa-solid fa-pen-to-square"></i></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($output['rows'] as $r) : ?>
             <tr>
+                <td>
+                    <a href="ab-delete.php?sid=<?= $r['sid'] ?>">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
+                </td>
                 <td><?= $r['sid'] ?></td>
                 <td><?= $r['name'] ?></td>
                 <td><?= $r['email'] ?></td>
@@ -106,6 +113,11 @@ if ($totalPages > 0) {
                 <!--
                 <td><?= strip_tags($r['address']) ?></td>
                 -->
+                <td>
+                    <a href="ab-edit.php?sid=<?= $r['sid'] ?>">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -115,5 +127,11 @@ if ($totalPages > 0) {
 
 </div>
 <?php include __DIR__ . '/parts/scripts.php' ?>
-<script></script>
+<script>
+function delete_it(sid) {
+    if (confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)) {
+        location.href = `ab-delete.php?sid=${sid}`;
+    }
+}
+</script>
 <?php include __DIR__ . '/parts/html-foot.php' ?>
