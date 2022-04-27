@@ -1,5 +1,4 @@
 <?php
-
 require './parts/connect-db.php';
 //echo $_SERVER['HTTP_REFERER'];
 //exit;
@@ -9,10 +8,9 @@ if (!empty($sid)) {
     $pdo->query("DELETE FROM address_book WHERE sid=$sid");
 }
 
-$comeFrome = 'ab-list.php'; // 給預設值
+$comeFrome = 'ab-list.php'; // 給預設定
 
-if(!empty($_SERVER['HTTP_REFERER'])) {
+if (!empty($_SERVER['HTTP_REFERER'])) {
     $comeFrome = $_SERVER['HTTP_REFERER'];
 }
-
-header('Location: '. $comeFrome);
+header('Location: ' . $comeFrome);

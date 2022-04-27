@@ -98,7 +98,7 @@ if ($totalPages > 0) {
             <?php foreach ($output['rows'] as $r) : ?>
             <tr>
                 <td>
-                    <a href="ab-delete.php?sid=<?= $r['sid'] ?>">
+                    <a href="javascript: delete_it(<?= $r['sid'] ?>)">
                         <i class="fa-solid fa-trash-can"></i>
                     </a>
                 </td>

@@ -9,17 +9,19 @@ $output = [
 ];
 header('Content-Type: application/json');
 
+$sid = isset($_POST['sid']) ? intval($_POST['sid']) : 0;
 
-// TODO: 檢查欄位資料
-if (empty($_POST['name'])) {
-    $output['error'] = '沒有姓名資料';
+$row = $pdo->query("SELECT * FROM address_book WHERE sid=$sid")->fetch();
+if (empty($row)) {
+    $output['error'] = '沒有該筆資料';
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
 
-$sql = "INSERT INTO `address_book`( `name`, `email`, `mobile`, `birthday`, `address`, `created_at`) VALUES ( ?, ?, ?, ?, ?, NOW())";
+$sql = "UPDATE `address_book` SET `name`=?,`email`=?,`mobile`=?,`birthday`=?,`address`=? WHERE sid=$sid";
 
 $stmt = $pdo->prepare($sql);
+
 $stmt->execute([
     $_POST['name'],
     $_POST['email'],
@@ -32,8 +34,7 @@ $output['rowCount'] = $stmt->rowCount();
 if ($stmt->rowCount() == 1) {
     $output['success'] = true;
 } else {
-    $output['error'] = '新增失敗';
+    $output['error'] = '資料沒有更新';
 }
-
 
 echo json_encode($output);
