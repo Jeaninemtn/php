@@ -56,6 +56,24 @@ form .warning {
     </div>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
@@ -64,16 +82,17 @@ const $email = $('#email');
 const $mobile = $('#mobile');
 const msgFields = [$name, $email, $mobile];
 
+const $modal = $('#exampleModal');
+const modal = new bootstrap.Modal($modal[0]);
+
 function validateEmail(email) {
     var re =
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zAZ]{2,}))$/;
-        // 正規表示法
     return re.test(email);
 }
 
 function validateMobile(m) {
     return /^09\d{2}-?\d{3}-?\d{3}$/.test(m);
-        // 正規表示法
 }
 
 
@@ -118,10 +137,17 @@ function checkForm() {
         $.post('ab-add-api.php', $(document.form1).serialize(), function(data) {
             console.log(data);
             if (data.success) {
-                alert('資料新增成功');
-                location.href = 'ab-list.php';
+                // alert('資料新增成功');
+                // location.href = 'ab-list.php';
+                $modal.find('#exampleModalLabel').html('資料新增成功');
+                $modal.find('.modal-body').html('恭喜');
+                modal.show();
+
             } else {
-                alert(data.error || '資料新增失敗');
+                //alert(data.error || '資料新增失敗');
+                $modal.find('#exampleModalLabel').html('資料新增失敗');
+                $modal.find('.modal-body').html('...');
+                modal.show();
             }
         }, 'json');
     }
