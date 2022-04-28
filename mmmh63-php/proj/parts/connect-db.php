@@ -32,3 +32,7 @@ $pdo_options = [ // 其他設定  這邊放一個array
 ]; // 類別裡定義的常數(以大寫呈現)
 
 $pdo = new PDO($dsn, $db_user, $db_pass, $pdo_options);
+
+if (!isset($_SESSION)) {
+    session_start();
+}
