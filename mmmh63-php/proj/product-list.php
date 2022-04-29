@@ -5,6 +5,17 @@ $pageName = 'product-list';
 $title = '產品列表';
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$cate = isset($_GET['cate']) ? intval($_GET['cate']) : 0; // 預設值為: 查看所有商品
+
+$params = [];
+
+$where = ' WHERE 1 ';
+if (!empty($cate)) {
+    $where .= " AND category_sid=$cate ";
+    $params['cate'] = $cate;
+}
+
+
 
 $perPage = 4; // 每一頁有幾筆資料
 
@@ -22,7 +33,7 @@ if ($page < 1) {
 }
 
 
-$t_sql = "SELECT COUNT(1) FROM products";
+$t_sql = "SELECT COUNT(1) FROM products $where ";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $output['totalRows'] = $totalRows;
 
@@ -36,10 +47,14 @@ if ($totalPages > 0) {
     }
 
     // 讀取分頁的資料
-    $sql = sprintf("SELECT `sid`, `author`, `bookname`, `category_sid`, `book_id`, `publish_date`, `pages`, `price` FROM products ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT `sid`, `author`, `bookname`, `category_sid`, `book_id`, `publish_date`, `pages`, `price` FROM products $where ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
     $rows = $output['rows'] = $pdo->query($sql)->fetchAll();
 }
+
+// *** 分類資料
+$c_sql = "SELECT * FROM categories WHERE parent_sid=0 ORDER BY sequence";
+$cates = $pdo->query($c_sql)->fetchAll();
 
 // header('Content-Type: application/json');  // 伺服器告訴用戶端文件的格式為 JSON
 // echo json_encode($output, JSON_UNESCAPED_UNICODE);
@@ -49,13 +64,54 @@ if ($totalPages > 0) {
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <div class="btn-group-vertical">
-                <button type="button" class="btn btn-primary">Button1</button>
-                <button type="button" class="btn btn-primary">Button2</button>
+            <div class="btn-group-vertical" style="width: 100%;">
+                <a class="btn btn-outline-primary" href="?">全部商品</a>
+                <?php foreach ($cates as $c) : ?>
+                <a class="btn btn-outline-primary" href="?cate=<?= $c['sid'] ?>"><?= $c['name'] ?></a>
+                <?php endforeach; ?>
             </div>
         </div>
         <div class="col-lg-9">
             <div class="row">
+                <div class="col">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=1">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page - 1 ?>">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                            </li>
+                            <?php for ($i = $page - 3; $i <= $page + 3; $i++) : ?>
+                            <?php if ($i >= 1 and $i <= $totalPages) :
+                                    $params['page'] = $i;
+
+                                ?>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link" href="?<?= http_build_query($params) ?>"><?= $i ?></a>
+                            </li>
+                            <?php endif; ?>
+                            <?php endfor; ?>
+                            <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $page + 1 ?>">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                                <a class="page-link" href="?page=<?= $totalPages ?>">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
+
                 <?php foreach ($rows as $r) : ?>
                 <div class="col-lg-3">
                     <div class="card">
@@ -63,7 +119,8 @@ if ($totalPages > 0) {
                         <div class="card-body">
                             <h5 class="card-title"><?= $r['bookname'] ?></h5>
                             <p class="card-text"><i class="fa-brands fa-bitcoin"></i> <?= $r['price'] ?></p>
-                            <p class="card-text"><i class="fa-solid fa-book-open-reader"></i> <?= $r['author'] ?></p>
+                            <p class="card-text"><i class="fa-solid fa-person"></i> <?= $r['author'] ?></p>
+
                         </div>
                     </div>
                 </div>
