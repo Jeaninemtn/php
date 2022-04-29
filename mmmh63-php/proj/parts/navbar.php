@@ -32,7 +32,11 @@ if (!isset($pageName)) {
                     <li class="nav-item">
                         <a class="nav-link <?= $pageName == 'ab-add' ? 'active' : '' ?>" href="ab-add.php">新增</a>
                     </li>
-
+                    <!-- 04.29 新增 商品按鈕 -->
+                    <li class="nav-item">
+                        <a class="nav-link <?= $pageName == 'product-list' ? 'active' : '' ?>"
+                            href="product-list.php">商品</a>
+                    </li>
                 </ul>
 
                 <!-- 04.28 登入及註冊按鈕 -->
