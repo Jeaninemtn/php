@@ -51,15 +51,19 @@ echo json_encode([
                         $item = $rows[$sid];
                         $total += $item['price'] * $item['quantity'];
                     ?>
-                    <tr>
-                        <td><?= $sid ?></td>
+                    <tr data-sid="<?= $sid ?>">
+                        <td><a href="#" onclick="removeItem(event); event.preventDefault()">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
                         <td>
                             <img src="imgs/small/<?= $item['book_id'] ?>.jpg" alt="">
                         </td>
                         <td><?= $item['bookname'] ?></td>
                         <td class="price" data-price="<?= $item['price'] ?>"></td>
                         <td>
-                            <select class="form-select form-select-sm" style="display:inline-block; width:auto">
+                            <select class="form-select form-select-sm quantity"
+                                style="display:inline-block; width:auto">
                                 <?php for ($i = 1; $i <= 20; $i++) : ?>
                                 <option value="<?= $i ?>" <?= $item['quantity'] == $i ? 'selected' : '' ?>><?= $i ?>
                                 </option>
@@ -87,7 +91,7 @@ echo json_encode([
 </div>
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
-const dollarCommas = function(n) {
+const dallorCommas = function(n) {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 };
 
@@ -98,15 +102,48 @@ const calcPrices = () => {
     trs.each(function() {
         const tr = $(this);
         const price = +tr.find('.price').attr('data-price');
-        tr.find('.price').text('$ ' + dollarCommas(price)); // 顯示單價
+        tr.find('.price').text('$ ' + dallorCommas(price)); // 顯示單價
         const quantity = +tr.find('select').val();
-        tr.find('.sub-total').text('$ ' + dollarCommas(price * quantity)); // 顯示小計
+        tr.find('.sub-total').text('$ ' + dallorCommas(price * quantity)); // 顯示小計
         totalPrice += price * quantity;
     });
 
-    $('#total-price').text('$ ' + dollarCommas(totalPrice));
+    $('#total-price').text('$ ' + dallorCommas(totalPrice));
 
 };
 calcPrices();
+
+$('.quantity').on('change', function() {
+    const me = $(this);
+    // console.log('me:', me);
+    const quantity = me.val();
+    const sid = me.closest('tr').attr('data-sid');
+
+    // console.log('tr:', me.find('tr'));
+
+    $.get('cart-api.php', {
+        sid,
+        quantity
+    }, function(data) {
+        console.log(data);
+
+        calcPrices(); // 重算所有價格
+    }, 'json');
+
+});
+
+const removeItem = event => {
+
+    const me = $(event.currentTarget);
+    const sid = me.closest('tr').attr('data-sid');
+    $.get('cart-api.php', {
+        sid
+    }, function(data) {
+        console.log(data);
+        me.closest('tr').remove();
+        calcPrices(); // 重算所有價格
+    }, 'json');
+
+}
 </script>
 <?php include __DIR__ . '/parts/html-foot.php' ?>
