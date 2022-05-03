@@ -166,6 +166,7 @@ $('.add-to-cart-btn').on('click', event => {
         quantity
     }, function(data) {
         console.log(data);
+        showCount(data);
     }, 'json');
 
 
