@@ -50,10 +50,19 @@ echo json_encode([
                     ?>
                     <tr>
                         <td><?= $sid ?></td>
-                        <td><?= $item['book_id'] ?></td>
+                        <td>
+                            <img src="imgs/small/<?= $item['book_id'] ?>.jpg" alt="">
+                        </td>
                         <td><?= $item['bookname'] ?></td>
                         <td><?= $item['price'] ?></td>
-                        <td><?= $item['quantity'] ?></td>
+                        <td>
+                            <select class="form-select form-select-sm" style="display:inline-block; width:auto">
+                                <?php for ($i = 1; $i <= 20; $i++) : ?>
+                                <option value="<?= $i ?>" <?= $item['quantity'] == $i ? 'selected' : '' ?>><?= $i ?>
+                                </option>
+                                <?php endfor; ?>
+                            </select>
+                        </td>
                         <td><?= $item['price'] * $item['quantity'] ?></td>
 
                     </tr>
