@@ -32,16 +32,16 @@ if (!isset($pageName)) {
                     <li class="nav-item">
                         <a class="nav-link <?= $pageName == 'ab-add' ? 'active' : '' ?>" href="ab-add.php">新增</a>
                     </li>
-                    <!-- 04.29 新增 商品按鈕 -->
                     <li class="nav-item">
                         <a class="nav-link <?= $pageName == 'product-list' ? 'active' : '' ?>"
                             href="product-list.php">商品</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= $pageName == 'cart' ? 'active' : '' ?>" href="cart.php">購物車 <span
+                                class="badge bg-danger"></span></a>
+                    </li>
+
                 </ul>
-
-                <!-- 04.28 登入及註冊按鈕 -->
-
-                <!-- 04.28 登入中狀態及登出按鈕 -->
 
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <?php if (isset($_SESSION['admin'])) : ?>
@@ -67,3 +67,20 @@ if (!isset($pageName)) {
         </div>
     </nav>
 </div>
+<script>
+function showCount(data) {
+    let total = 0;
+    if (data && data.cart) {
+        for (let s in data.cart) {
+            total += +data.cart[s];
+        }
+    }
+    document.querySelector('.badge').innerHTML = total;
+}
+
+fetch('cart-api.php')
+    .then(r => r.json())
+    .then(data => {
+        showCount(data);
+    });
+</script>

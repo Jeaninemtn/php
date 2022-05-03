@@ -126,7 +126,7 @@ $('.quantity').on('change', function() {
         quantity
     }, function(data) {
         console.log(data);
-
+        showCount(data);
         calcPrices(); // 重算所有價格
     }, 'json');
 
@@ -141,6 +141,7 @@ const removeItem = event => {
     }, function(data) {
         console.log(data);
         me.closest('tr').remove();
+        showCount(data);
         calcPrices(); // 重算所有價格
     }, 'json');
 
