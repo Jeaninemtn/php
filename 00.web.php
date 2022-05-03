@@ -24,3 +24,7 @@ phpInfo();
 // https://www.adminer.org/
 
 // 可以透過adminer去連線別人的資料庫
+
+// detect mobile browser 
+
+// http://detectmobilebrowsers.com/
