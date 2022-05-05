@@ -88,6 +88,22 @@ echo json_encode([
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+            <?php if (isset($_SESSION['admin'])) : ?>
+            <a class="btn btn-success" href="buy.php">結帳</a>
+            <?php else : ?>
+            <div class="alert alert-danger" role="alert">
+                請登入會員後再結帳
+            </div>
+
+            <?php endif; ?>
+
+
+
+        </div>
+    </div>
 </div>
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
