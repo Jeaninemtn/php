@@ -1,6 +1,7 @@
 <?php
 require './parts/connect-db.php';
-
+$pageName = 'buy';
+$title = '完成訂購';
 /*
 if (!isset($_SESSION['admin'])) {
     // 沒有登入
@@ -38,12 +39,24 @@ VALUES
 
 $pdo->query($sql);
 $order_sid = $pdo->lastInsertId();
-printf("<!-- %s -->", $order_sid);
+// printf("<!-- %s -->", $order_sid);
+
+$stmt = $pdo->prepare("INSERT INTO `order_details`(`order_sid`, `product_sid`, `price`, `quantity`) VALUES (?, ?, ?, ?)");
+
+foreach ($sids as $sid) {
+    $item = $rows[$sid];
+
+    $stmt->execute([
+        $order_sid,
+        $item['sid'],
+        $item['price'],
+        $item['quantity'],
+    ]);
+}
+
+unset($_SESSION['cart']);
 
 
-
-$pageName = 'buy';
-$title = '完成訂購';
 ?>
 <?php include __DIR__ . '/parts/html-head.php' ?>
 <?php include __DIR__ . '/parts/navbar.php' ?>
