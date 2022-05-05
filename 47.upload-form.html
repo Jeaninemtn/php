@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>upload form</title>
+    </head>
+    <body>
+        <div onclick="myfile.click()">Click to Upload</div>
+        <img src="" alt="" id="myimg" />
+
+        <form name="form" style="display: none">
+            <input
+                type="file"
+                id="myfile"
+                name="myfile"
+                accept="image/*"
+                onchange="fileChanged()"
+            />
+        </form>
+
+        <script>
+            function fileChanged() {
+                const fd = new FormData(document.form);
+
+                fetch("46.upload-single-api.php", {
+                    method: "POST",
+                    body: fd,
+                })
+                    .then((r) => r.json())
+                    .then((obj) => {
+                        console.log(obj);
+                        myimg.src = obj.filename;
+                    });
+            }
+        </script>
+    </body>
+</html>
