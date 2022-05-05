@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+
+        <!-- https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL -->
+        
+    </head>
+    <body>
+        <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            onchange="changeFile(event)"
+        />
+
+        <script>
+            function changeFile(event) {
+                const fi = document.querySelector("#fileInput");
+                // console.log(fi.files[0]);
+
+                const reader = new FileReader();
+                reader.onload = function () {
+                    console.log(reader.result);
+                };
+
+                // 讀取出來的格式為 base64
+                reader.readAsDataURL(fi.files[0]);
+            }
+        </script>
+    </body>
+</html>
