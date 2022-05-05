@@ -53,7 +53,10 @@ if ($totalPages > 0) {
 }
 
 // *** 分類資料
-$c_sql = "SELECT * FROM categories WHERE parent_sid=0 ORDER BY sequence";
+$c_sql = "SELECT * FROM categories WHERE parent_sid=0 /* ORDER BY sequence*/";
+
+// 老師在資料表的categories有加sequence 但我沒有加QQ 所以先註解掉
+
 $cates = $pdo->query($c_sql)->fetchAll();
 
 // header('Content-Type: application/json');  // 伺服器告訴用戶端文件的格式為 JSON
