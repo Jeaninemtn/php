@@ -23,6 +23,10 @@
     echo "This ", "string ", "was ", "made ", "with multiple parameters.";
 
     
+    $txt = "W3Schools.com";
+    echo "I love " . $txt . "!";
+    // 用.連接
+
     print 100+23;
 
     $apple = print QQ;  // 這個寫法ok 會印出QQ
