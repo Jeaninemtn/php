@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax-php</title>
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: gainsboro;
+        }
+
+        .container {
+            margin-top: 80px;
+            border: 2px solid rgb(31, 97, 78);
+            padding: 30px 50px;
+            border-radius: 10px;
+        }
+
+        .mt-15 {
+            margin-top: 15px;
+        }
+
+        .mt-30 {
+            margin-top: 30px;
+        }
+
+        input {
+            font-size: 1.2rem;
+            background-color: transparent;
+            border: 1px solid transparent;
+            border-bottom: 2px solid rgb(31, 97, 78);
+            outline-style: none;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: rgb(31, 97, 78);
+        }
+
+    </style>
+</head>
+
+<!-- https://www.w3schools.com/js/js_ajax_php.asp -->
+
+<body>
+
+    <div class="container">
+        <div>
+            <h2>The XMLHttpRequest Object</h2>
+            <h3 class="mt-15">Start typing a name in the input field below:</h3>
+        </div>
+        <div class="mt-30">
+            <p>Suggestions: <span id="txtHint"></span></p>
+            <p class="mt-15">First name:
+                <input type="text" id="txt1" onkeyup="showHint(this.value)">
+            </p>
+        </div>
+    </div>
+
+    <script>
+
+        function showHint(str) {
+            if (str.length == 0) {
+                document.getElementById('txtHint').innerHTML = "";
+                // 如果input裡沒有東西 那suggestions也只要空空的就好
+                return;  // 停在這
+            } else {  // 如果input有東西 那執行下面這串
+                const xhttp = new XMLHttpRequest(); // 建立XMLHttpRequest物件
+                xhttp.onload = function () {
+                    document.getElementById('txtHint').innerHTML = this.responseText;
+                }
+                xhttp.open('GET', './79.gethint.php?q=' + str);
+                // ?後面帶參數 參數q=input值
+                xhttp.send();
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
