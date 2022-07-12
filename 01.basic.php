@@ -29,7 +29,7 @@
 
     print 100+23;
 
-    $apple = print QQ;  // 這個寫法ok 會印出QQ
+    $apple = print "QQ";  // 這個寫法ok 會印出QQ
     // 可是echo不可以使用這個寫法!
 
 
